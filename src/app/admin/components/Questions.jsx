@@ -1,8 +1,11 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import "../../globals.css"; // Ensure this import is present to apply the custom styles
 
-const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL,{withCredentials: true,});
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL, {
+  withCredentials: true,
+});
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
@@ -44,25 +47,25 @@ export default function Questions() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="overflow-y-auto" style={{ maxHeight: '400px' }}>
-        <table className="min-w-full bg-white border border-gray-200">
+    <div className="container">
+      <div className="overflow-y-auto" style={{ maxHeight: "400px" }}>
+        <table className="table">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b bg-gray-100 text-black">#</th>
-              <th className="py-2 px-4 border-b bg-gray-100 text-black">Question</th>
-              <th className="py-2 px-4 border-b bg-gray-100 text-black">Action</th>
+              <th>#</th>
+              <th>Question</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {questions.map((question, index) => (
-              <tr key={index} className={`hover:bg-gray-200 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-gray-100'}`}>
-                <td className="py-2 px-4 border-b text-center text-black">{index + 1}</td>
-                <td className="py-2 px-4 border-b text-black">{question.question}</td>
-                <td className="py-2 px-4 border-b text-center">
+              <tr key={index}>
+                <td className="text-center text-black">{index + 1}</td>
+                <td className="text-black">{question.question}</td>
+                <td className="text-center">
                   <button
                     onClick={() => handlePublish(question.id)}
-                    className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-700"
+                    className="button"
                   >
                     Publish
                   </button>
