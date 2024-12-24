@@ -1,213 +1,367 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import "../../game.css";
 
-const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL,{withCredentials: true,});
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL, {
+  withCredentials: true,
+});
 
-export default function GameBoard() {
+export default function GameBoard({ isAdmin }) {
   const [question, setQuestion] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [answerIndex, setAnswerIndex] = useState(null);
+  const [score, setScore] = useState(0);
+  const [team1Score, setTeam1Score] = useState(0);
+  const [team2Score, setTeam2Score] = useState(0);
 
   useEffect(() => {
     socket.on("publishQuestion", (question) => {
       setQuestion(question);
+      setAnswers([]);
+      setAnswerIndex(null);
+      setScore(0);
+      setTeam1Score(0);
+      setTeam2Score(0);
+    });
+
+    socket.on("revealAnswer", (answerIndex) => {
+      debugger;
+      setAnswerIndex(answerIndex);
+      setAnswers((prevAnswers) => {
+        return [...prevAnswers, answerIndex];
+      });
+    });
+
+    socket.on("awardPoints", (teamScore) => {
+      debugger;
+
+      if (teamScore.team === 1) {
+        setTeam1Score((prevScore) => prevScore + teamScore.score);
+      } else if (teamScore.team === 2) {
+        setTeam2Score((prevScore) => prevScore + teamScore.score);
+      }
+      setScore(0);
     });
 
     return () => {
       socket.off("publishQuestion");
+      socket.off("revealAnswer");
+      socket.off("awardPoints");
     };
   }, []);
 
-  return (<div className="gameBoard">
-  
-  <div className="score" id="boardScore">
-    0
-  </div>
-  <div className="score" id="team1">
-   0
-  </div>
-  <div className="score" id="team2">
-   0
-  </div>
-  {/*- Question -*/}
-  <div className="questionHolder">
-    <span className="question">{question ? question.question : "Waiting for question..."}</span>
-  </div>
-  {/*- Answers -*/}
-  <div className="colHolder">
-    <div className="col1">
-      <div className="cardHolder" style={{ perspective: 800 }}>
-        <div
-          className="card"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
-          }}
-        >
-          <div className="front" style={{ backfaceVisibility: "hidden" }}>
-            <span className="DBG">1</span>
+  useEffect(() => {
+    debugger;
+    if (question && answers.length > 0) {
+      setScore(question.answers[answerIndex].points);
+    }
+  }, [answers]);
+
+  return (
+    <div className="gameBoard">
+      <div className="score" id="boardScore">
+        {score}
+      </div>
+      <div className="score" id="team1">
+        {team1Score}
+      </div>
+      <div className="score" id="team2">
+        {team2Score}
+      </div>
+      {/*- Question -*/}
+      <div className="questionHolder">
+        <span className="question">
+          {question ? question.question : "Waiting for question..."}
+        </span>
+      </div>
+      {/*- Answers -*/}
+      <div className="colHolder">
+        <div className="col1">
+          <div className="cardHolder" style={{ perspective: 800 }}>
+            <div
+              onClick={() => {
+                if (isAdmin) {
+                  socket.emit("revealAnswer", 0);
+                }
+              }}
+              className="card"
+              style={{
+                transformStyle: "preserve-3d",
+                transform:
+                  isAdmin || answers.includes(0)
+                    ? "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
+                    : null,
+              }}
+            >
+              <div className="front" style={{ backfaceVisibility: "hidden" }}>
+                <span className="DBG">1</span>
+              </div>
+              <div
+                className="back DBG"
+                style={{
+                  transform:
+                    "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span>
+                  {question && question.answers[0] && question.answers[0].answer
+                    ? question.answers[0].answer
+                    : "..."}
+                </span>
+                <b className="LBG">
+                  {question && question.answers[0] && question.answers[0].answer
+                    ? question.answers[0].points
+                    : "..."}
+                </b>
+              </div>
+            </div>
           </div>
-          <div
-            className="back DBG"
-            style={{
-              transform:
-                "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
-              backfaceVisibility: "hidden"
-            }}
-          >
-            <span>Physician</span>
-            <b className="LBG">43</b>
+          <div className="cardHolder" style={{ perspective: 800 }}>
+            <div
+              className="card"
+              onClick={() => {
+                if (isAdmin) {
+                  socket.emit("revealAnswer", 1);
+                }
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                transform:
+                  isAdmin || answers.includes(1)
+                    ? "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
+                    : null,
+              }}
+            >
+              <div className="front" style={{ backfaceVisibility: "hidden" }}>
+                <span className="DBG">2</span>
+              </div>
+              <div
+                className="back DBG"
+                style={{
+                  transform:
+                    "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span>
+                  {question && question.answers[1] && question.answers[1].answer
+                    ? question.answers[1].answer
+                    : "..."}
+                </span>
+                <b className="LBG">
+                  {question && question.answers[1] && question.answers[1].answer
+                    ? question.answers[1].points
+                    : "..."}
+                </b>
+              </div>
+            </div>
+          </div>
+          <div className="cardHolder" style={{ perspective: 800 }}>
+            <div
+              className="card"
+              onClick={() => {
+                if (isAdmin) {
+                  socket.emit("revealAnswer", 2);
+                }
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                transform:
+                  isAdmin || answers.includes(2)
+                    ? "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
+                    : null,
+              }}
+            >
+              <div className="front" style={{ backfaceVisibility: "hidden" }}>
+                <span className="DBG">3</span>
+              </div>
+              <div
+                className="back DBG"
+                style={{
+                  transform:
+                    "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span>
+                  {question && question.answers[2] && question.answers[2].answer
+                    ? question.answers[2].answer
+                    : "..."}
+                </span>
+                <b className="LBG">
+                  {question && question.answers[2] && question.answers[2].answer
+                    ? question.answers[2].points
+                    : "..."}
+                </b>
+              </div>
+            </div>
+          </div>
+          <div className="cardHolder" style={{ perspective: 800 }}>
+            <div
+              className="card"
+              onClick={() => {
+                if (isAdmin) {
+                  socket.emit("revealAnswer", 3);
+                }
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                transform:
+                  isAdmin || answers.includes(3)
+                    ? "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
+                    : null,
+              }}
+            >
+              <div className="front" style={{ backfaceVisibility: "hidden" }}>
+                <span className="DBG">4</span>
+              </div>
+              <div
+                className="back DBG"
+                style={{
+                  transform:
+                    "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span>
+                  {question && question.answers[3] && question.answers[3].answer
+                    ? question.answers[3].answer
+                    : "..."}
+                </span>
+                <b className="LBG">
+                  {question && question.answers[3] && question.answers[3].answer
+                    ? question.answers[3].points
+                    : "..."}
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col2">
+          <div className="cardHolder" style={{ perspective: 800 }}>
+            <div
+              className="card"
+              onClick={() => {
+                if (isAdmin) {
+                  socket.emit("revealAnswer", 4);
+                }
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                transform:
+                  isAdmin || answers.includes(4)
+                    ? "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
+                    : null,
+              }}
+            >
+              <div className="front" style={{ backfaceVisibility: "hidden" }}>
+                <span className="DBG">5</span>
+              </div>
+              <div
+                className="back DBG"
+                style={{
+                  transform:
+                    "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span>
+                  {question && question.answers[4] && question.answers[4].answer
+                    ? question.answers[4].answer
+                    : "..."}
+                </span>
+                <b className="LBG">
+                  {question && question.answers[4] && question.answers[4].answer
+                    ? question.answers[4].points
+                    : "..."}
+                </b>
+              </div>
+            </div>
+          </div>
+          <div className="cardHolder" style={{ perspective: 800 }}>
+            <div
+              className="card"
+              onClick={() => {
+                if (isAdmin) {
+                  socket.emit("revealAnswer", 5);
+                }
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                transform:
+                  isAdmin || answers.includes(5)
+                    ? "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
+                    : null,
+              }}
+            >
+              <div className="front" style={{ backfaceVisibility: "hidden" }}>
+                <span className="DBG">6</span>
+              </div>
+              <div
+                className="back DBG"
+                style={{
+                  transform:
+                    "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span>
+                  {question && question.answers[5] && question.answers[5].answer
+                    ? question.answers[5].answer
+                    : "..."}
+                </span>
+                <b className="LBG">
+                  {question && question.answers[5] && question.answers[5].answer
+                    ? question.answers[5].points
+                    : "..."}
+                </b>
+              </div>
+            </div>
+          </div>
+          <div className="cardHolder empty" style={{ perspective: 800 }}>
+            <div />
+          </div>
+          <div className="cardHolder empty" style={{ perspective: 800 }}>
+            <div />
           </div>
         </div>
       </div>
-      <div className="cardHolder" style={{ perspective: 800 }}>
-        <div
-          className="card"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
-          }}
-        >
-          <div className="front" style={{ backfaceVisibility: "hidden" }}>
-            <span className="DBG">2</span>
-          </div>
+      {/*- Buttons -*/}
+      {isAdmin && (
+        <div className="btnHolder">
           <div
-            className="back DBG"
-            style={{
-              transform:
-                "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
-              backfaceVisibility: "hidden"
+            id="awardTeam1"
+            data-team={1}
+            className="button"
+            onClick={() => {
+              socket.emit("awardPoints", { team: 1, score: score });
             }}
           >
-            <span>Lawyer</span>
-            <b className="LBG">22</b>
-          </div>
-        </div>
-      </div>
-      <div className="cardHolder" style={{ perspective: 800 }}>
-        <div
-          className="card"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
-          }}
-        >
-          <div className="front" style={{ backfaceVisibility: "hidden" }}>
-            <span className="DBG">3</span>
+            Award Team 1
           </div>
           <div
-            className="back DBG"
-            style={{
-              transform:
-                "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
-              backfaceVisibility: "hidden"
+            id="reset"
+            className="button"
+            onClick={() => {
+              socket.emit("publishQuestion", null);
             }}
           >
-            <span>President</span>
-            <b className="LBG">7</b>
-          </div>
-        </div>
-      </div>
-      <div className="cardHolder" style={{ perspective: 800 }}>
-        <div
-          className="card"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
-          }}
-        >
-          <div className="front" style={{ backfaceVisibility: "hidden" }}>
-            <span className="DBG">4</span>
+            Reset
           </div>
           <div
-            className="back DBG"
-            style={{
-              transform:
-                "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
-              backfaceVisibility: "hidden"
+            id="awardTeam2"
+            data-team={2}
+            className="button"
+            onClick={() => {
+              socket.emit("awardPoints", { team: 2, score: score });
             }}
           >
-            <span>Banker</span>
-            <b className="LBG">3</b>
+            Award Team 2
           </div>
         </div>
-      </div>
+      )}
     </div>
-    <div className="col2">
-      <div className="cardHolder" style={{ perspective: 800 }}>
-        <div
-          className="card"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
-          }}
-        >
-          <div className="front" style={{ backfaceVisibility: "hidden" }}>
-            <span className="DBG">5</span>
-          </div>
-          <div
-            className="back DBG"
-            style={{
-              transform:
-                "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
-              backfaceVisibility: "hidden"
-            }}
-          >
-            <span>Pilot</span>
-            <b className="LBG">2</b>
-          </div>
-        </div>
-      </div>
-      <div className="cardHolder" style={{ perspective: 800 }}>
-        <div
-          className="card"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)"
-          }}
-        >
-          <div className="front" style={{ backfaceVisibility: "hidden" }}>
-            <span className="DBG">6</span>
-          </div>
-          <div
-            className="back DBG"
-            style={{
-              transform:
-                "matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
-              backfaceVisibility: "hidden"
-            }}
-          >
-            <span>Politician</span>
-            <b className="LBG">2</b>
-          </div>
-        </div>
-      </div>
-      <div className="cardHolder empty" style={{ perspective: 800 }}>
-        <div />
-      </div>
-      <div className="cardHolder empty" style={{ perspective: 800 }}>
-        <div />
-      </div>
-    </div>
-  </div>
-  {/*- Buttons -*/}
-  <div className="btnHolder">
-    <div id="awardTeam1" data-team={1} className="button">
-      Award Team 1
-    </div>
-    <div id="newQuestion" className="button">
-      New Question
-    </div>
-    <div id="awardTeam2" data-team={2} className="button">
-      Award Team 2
-    </div>
-  </div>
-</div>
-  )
+  );
 }

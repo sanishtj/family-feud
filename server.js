@@ -28,6 +28,14 @@ app.prepare().then(() => {
     socket.on("publishQuestion", (question) => {
       io.emit("publishQuestion", question);
     });
+
+    socket.on("revealAnswer", (answer) => {
+      io.emit("revealAnswer", answer);
+    });
+
+    socket.on("awardPoints", (teamScore) => {
+      io.emit("awardPoints", teamScore);
+    });
   });
 
   server.all("*", (req, res) => {
