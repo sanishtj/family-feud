@@ -1,0 +1,407 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "question": "Name a fruit that is typically red.",
+      "answers": [
+        {
+          "answer": "Apple",
+          "points": 40
+        },
+        {
+          "answer": "Strawberry",
+          "points": 30
+        },
+        {
+          "answer": "Cherry",
+          "points": 20
+        },
+        {
+          "answer": "Raspberry",
+          "points": 5
+        },
+        {
+          "answer": "Pomegranate",
+          "points": 3
+        },
+        {
+          "answer": "Red Grapes",
+          "points": 2
+        }
+      ],
+      "used": true
+    },
+    {
+      "id": "2",
+      "question": "Name a common household pet.",
+      "answers": [
+        {
+          "answer": "Dog",
+          "points": 50
+        },
+        {
+          "answer": "Cat",
+          "points": 30
+        },
+        {
+          "answer": "Fish",
+          "points": 10
+        },
+        {
+          "answer": "Bird",
+          "points": 5
+        },
+        {
+          "answer": "Hamster",
+          "points": 3
+        },
+        {
+          "answer": "Rabbit",
+          "points": 2
+        }
+      ],
+      "used": true
+    },
+    {
+      "id": "3",
+      "question": "Name a popular fast food chain.",
+      "answers": [
+        {
+          "answer": "McDonald's",
+          "points": 45
+        },
+        {
+          "answer": "Burger King",
+          "points": 25
+        },
+        {
+          "answer": "KFC",
+          "points": 15
+        },
+        {
+          "answer": "Subway",
+          "points": 10
+        },
+        {
+          "answer": "Taco Bell",
+          "points": 3
+        },
+        {
+          "answer": "Wendy's",
+          "points": 2
+        }
+      ],
+      "used": true
+    },
+    {
+      "id": "4",
+      "question": "Name a type of flower.",
+      "answers": [
+        {
+          "answer": "Rose",
+          "points": 50
+        },
+        {
+          "answer": "Tulip",
+          "points": 20
+        },
+        {
+          "answer": "Sunflower",
+          "points": 15
+        },
+        {
+          "answer": "Daisy",
+          "points": 10
+        },
+        {
+          "answer": "Lily",
+          "points": 3
+        },
+        {
+          "answer": "Orchid",
+          "points": 2
+        }
+      ],
+      "used": true
+    },
+    {
+      "id": "5",
+      "question": "Name a popular ice cream flavor.",
+      "answers": [
+        {
+          "answer": "Vanilla",
+          "points": 40
+        },
+        {
+          "answer": "Chocolate",
+          "points": 30
+        },
+        {
+          "answer": "Strawberry",
+          "points": 20
+        },
+        {
+          "answer": "Mint Chocolate Chip",
+          "points": 5
+        },
+        {
+          "answer": "Cookie Dough",
+          "points": 3
+        },
+        {
+          "answer": "Rocky Road",
+          "points": 2
+        }
+      ],
+      "used": true
+    },
+    {
+      "id": "6",
+      "question": "Name a type of tree.",
+      "answers": [
+        {
+          "answer": "Oak",
+          "points": 40
+        },
+        {
+          "answer": "Pine",
+          "points": 30
+        },
+        {
+          "answer": "Maple",
+          "points": 20
+        },
+        {
+          "answer": "Birch",
+          "points": 5
+        },
+        {
+          "answer": "Willow",
+          "points": 3
+        },
+        {
+          "answer": "Cedar",
+          "points": 2
+        }
+      ],
+      "used": true
+    },
+    {
+      "id": "7",
+      "question": "Name a popular vacation destination.",
+      "answers": [
+        {
+          "answer": "Hawaii",
+          "points": 50
+        },
+        {
+          "answer": "Paris",
+          "points": 30
+        },
+        {
+          "answer": "New York",
+          "points": 10
+        },
+        {
+          "answer": "Tokyo",
+          "points": 5
+        },
+        {
+          "answer": "London",
+          "points": 3
+        },
+        {
+          "answer": "Sydney",
+          "points": 2
+        }
+      ],
+      "used": false
+    },
+    {
+      "id": "8",
+      "question": "Name a type of weather.",
+      "answers": [
+        {
+          "answer": "Sunny",
+          "points": 50
+        },
+        {
+          "answer": "Rainy",
+          "points": 30
+        },
+        {
+          "answer": "Snowy",
+          "points": 10
+        },
+        {
+          "answer": "Windy",
+          "points": 5
+        },
+        {
+          "answer": "Cloudy",
+          "points": 3
+        },
+        {
+          "answer": "Stormy",
+          "points": 2
+        }
+      ],
+      "used": false
+    },
+    {
+      "id": "9",
+      "question": "Name a type of transportation.",
+      "answers": [
+        {
+          "answer": "Car",
+          "points": 50
+        },
+        {
+          "answer": "Bus",
+          "points": 30
+        },
+        {
+          "answer": "Train",
+          "points": 10
+        },
+        {
+          "answer": "Bicycle",
+          "points": 5
+        },
+        {
+          "answer": "Airplane",
+          "points": 3
+        },
+        {
+          "answer": "Boat",
+          "points": 2
+        }
+      ],
+      "used": false
+    },
+    {
+      "id": "10",
+      "question": "Name a type of clothing.",
+      "answers": [
+        {
+          "answer": "Shirt",
+          "points": 40
+        },
+        {
+          "answer": "Pants",
+          "points": 30
+        },
+        {
+          "answer": "Dress",
+          "points": 20
+        },
+        {
+          "answer": "Skirt",
+          "points": 5
+        },
+        {
+          "answer": "Jacket",
+          "points": 3
+        },
+        {
+          "answer": "Sweater",
+          "points": 2
+        }
+      ],
+      "used": false
+    },
+    {
+      "id": "11",
+      "question": "Name a type of beverage.",
+      "answers": [
+        {
+          "answer": "Water",
+          "points": 50
+        },
+        {
+          "answer": "Coffee",
+          "points": 30
+        },
+        {
+          "answer": "Tea",
+          "points": 10
+        },
+        {
+          "answer": "Juice",
+          "points": 5
+        },
+        {
+          "answer": "Soda",
+          "points": 3
+        },
+        {
+          "answer": "Milk",
+          "points": 2
+        }
+      ],
+      "used": false
+    },
+    {
+      "id": "12",
+      "question": "Name a type of sport.",
+      "answers": [
+        {
+          "answer": "Soccer",
+          "points": 50
+        },
+        {
+          "answer": "Basketball",
+          "points": 30
+        },
+        {
+          "answer": "Baseball",
+          "points": 10
+        },
+        {
+          "answer": "Tennis",
+          "points": 5
+        },
+        {
+          "answer": "Golf",
+          "points": 3
+        },
+        {
+          "answer": "Swimming",
+          "points": 2
+        }
+      ],
+      "used": false
+    },
+    {
+      "id": "13",
+      "question": "Name a type of music genre.",
+      "answers": [
+        {
+          "answer": "Pop",
+          "points": 40
+        },
+        {
+          "answer": "Rock",
+          "points": 30
+        },
+        {
+          "answer": "Jazz",
+          "points": 20
+        },
+        {
+          "answer": "Classical",
+          "points": 5
+        },
+        {
+          "answer": "Hip Hop",
+          "points": 3
+        },
+        {
+          "answer": "Country",
+          "points": 2
+        }
+      ],
+      "used": false
+    }
+  ]
+}
