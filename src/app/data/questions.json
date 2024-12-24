@@ -29,7 +29,7 @@
           "points": 2
         }
       ],
-      "used": false
+      "used": true
     },
     {
       "id": "2",
@@ -215,7 +215,7 @@
           "points": 2
         }
       ],
-      "used": false
+      "used": true
     },
     {
       "id": "8",

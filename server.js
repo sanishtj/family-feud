@@ -2,6 +2,8 @@ const express = require("express");
 const next = require("next");
 const http = require("http");
 const socketIo = require("socket.io");
+const jsonServer = require("json-server");
+const path = require("path");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -17,6 +19,13 @@ app.prepare().then(() => {
       credentials: true,
     },
   });
+
+  // JSON Server setup
+  const router = jsonServer.router(
+    path.join(__dirname, "src/app/data/questions.json")
+  );
+  const middlewares = jsonServer.defaults();
+  server.use("/api", middlewares, router);
 
   io.on("connection", (socket) => {
     console.log("New client connected");

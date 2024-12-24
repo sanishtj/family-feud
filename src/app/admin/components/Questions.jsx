@@ -11,7 +11,7 @@ export default function Questions() {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`)
+    fetch("/api/questions")
       .then((response) => response.json())
       .then((data) => {
         const unusedQuestions = data.filter((question) => !question.used);
@@ -24,7 +24,7 @@ export default function Questions() {
     const questionToUpdate = questions.find((question) => question.id === id);
     questionToUpdate.used = true;
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${id}`, {
+    fetch(`/api/questions/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
