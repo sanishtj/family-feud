@@ -1,11 +1,14 @@
 "use client"
 import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL,{withCredentials: true,});
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/questions")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`)
       .then((response) => response.json())
       .then((data) => {
         const unusedQuestions = data.filter((question) => !question.used);
@@ -18,7 +21,7 @@ export default function Questions() {
     const questionToUpdate = questions.find((question) => question.id === id);
     questionToUpdate.used = true;
 
-    fetch(`http://localhost:3001/questions/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +38,7 @@ export default function Questions() {
         setQuestions((prevQuestions) =>
           prevQuestions.filter((question) => question.id !== id)
         );
+        socket.emit("publishQuestion", updatedQuestion);
       })
       .catch((error) => console.error("Error updating question:", error));
   };
@@ -53,7 +57,7 @@ export default function Questions() {
           <tbody>
             {questions.map((question, index) => (
               <tr key={index} className={`hover:bg-gray-200 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-gray-100'}`}>
-                <td className="py-2 px-4 border-b text-center text-black">{question.id}</td>
+                <td className="py-2 px-4 border-b text-center text-black">{index + 1}</td>
                 <td className="py-2 px-4 border-b text-black">{question.question}</td>
                 <td className="py-2 px-4 border-b text-center">
                   <button
