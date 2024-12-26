@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import "../../game.css";
+import "../../globals.css";
 
 const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL, {
   withCredentials: true,
@@ -14,6 +14,7 @@ export default function GameBoard({ isAdmin }) {
   const [score, setScore] = useState(0);
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
+  const [showCross, setShowCross] = useState(false);
 
   useEffect(() => {
     socket.on("publishQuestion", (question) => {
@@ -26,7 +27,6 @@ export default function GameBoard({ isAdmin }) {
     });
 
     socket.on("revealAnswer", (answerIndex) => {
-      debugger;
       setAnswerIndex(answerIndex);
       setAnswers((prevAnswers) => {
         return [...prevAnswers, answerIndex];
@@ -34,8 +34,6 @@ export default function GameBoard({ isAdmin }) {
     });
 
     socket.on("awardPoints", (teamScore) => {
-      debugger;
-
       if (teamScore.team === 1) {
         setTeam1Score((prevScore) => prevScore + teamScore.score);
       } else if (teamScore.team === 2) {
@@ -44,15 +42,22 @@ export default function GameBoard({ isAdmin }) {
       setScore(0);
     });
 
+    socket.on("wrongAnswer", () => {
+      setShowCross(true);
+      setTimeout(() => {
+        setShowCross(false);
+      }, 5000);
+    });
+
     return () => {
       socket.off("publishQuestion");
       socket.off("revealAnswer");
       socket.off("awardPoints");
+      socket.off("wrongAnswer");
     };
   }, []);
 
   useEffect(() => {
-    debugger;
     if (question && answers.length > 0) {
       setScore(question.answers[answerIndex].points);
     }
@@ -60,6 +65,11 @@ export default function GameBoard({ isAdmin }) {
 
   return (
     <div className="gameBoard">
+      {showCross && !isAdmin && (
+        <div className="overlay visible">
+          <img src="/cross.png" alt="Wrong Answer" className="cross-image" />
+        </div>
+      )}
       <div className="score" id="boardScore">
         {score}
       </div>
@@ -349,6 +359,15 @@ export default function GameBoard({ isAdmin }) {
             }}
           >
             Reset
+          </div>
+          <div
+            id="reset"
+            className="button"
+            onClick={() => {
+              socket.emit("wrongAnswer", null);
+            }}
+          >
+            Wrong Answer
           </div>
           <div
             id="awardTeam2"

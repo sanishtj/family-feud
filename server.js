@@ -45,6 +45,10 @@ app.prepare().then(() => {
     socket.on("awardPoints", (teamScore) => {
       io.emit("awardPoints", teamScore);
     });
+
+    socket.on("wrongAnswer", () => {
+      io.emit("wrongAnswer");
+    });
   });
 
   server.all("*", (req, res) => {
