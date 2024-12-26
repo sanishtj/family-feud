@@ -34,6 +34,12 @@ export default function GameBoard({ isAdmin }) {
       setAnswers((prevAnswers) => {
         return [...prevAnswers, answerIndex];
       });
+
+      if (soundEnabled && correctAnswerAudioRef.current) {
+        correctAnswerAudioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
     });
 
     socket.on("awardPoints", (teamScore) => {
@@ -43,11 +49,6 @@ export default function GameBoard({ isAdmin }) {
         setTeam2Score((prevScore) => prevScore + teamScore.score);
       }
       setScore(0);
-      if (soundEnabled && correctAnswerAudioRef.current) {
-        correctAnswerAudioRef.current.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
-      }
     });
 
     socket.on("wrongAnswer", () => {
