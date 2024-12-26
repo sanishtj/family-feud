@@ -126,3 +126,12 @@
 .card.flipped {
   transform: rotateY(180deg);
 }
+
+/* Fit-Text */
+.fit-text {
+  font-size: 0.95vw; /* Adjust this value as needed */
+  white-space: nowrap;
+
+  text-align: center;
+  line-height: 1.2;
+}

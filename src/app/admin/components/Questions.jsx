@@ -11,7 +11,11 @@ export default function Questions() {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    fetch("/api/questions")
+    fetch("/api/questions", {
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         const unusedQuestions = data.filter((question) => !question.used);

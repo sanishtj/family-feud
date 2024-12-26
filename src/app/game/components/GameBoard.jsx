@@ -130,7 +130,7 @@ export default function GameBoard({ isAdmin }) {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <span>
+                <span className="fit-text">
                   {question && question.answers[0] && question.answers[0].answer
                     ? question.answers[0].answer
                     : "..."}
@@ -170,7 +170,7 @@ export default function GameBoard({ isAdmin }) {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <span>
+                <span className="fit-text">
                   {question && question.answers[1] && question.answers[1].answer
                     ? question.answers[1].answer
                     : "..."}
@@ -210,7 +210,7 @@ export default function GameBoard({ isAdmin }) {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <span>
+                <span className="fit-text">
                   {question && question.answers[2] && question.answers[2].answer
                     ? question.answers[2].answer
                     : "..."}
@@ -250,7 +250,7 @@ export default function GameBoard({ isAdmin }) {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <span>
+                <span className="fit-text">
                   {question && question.answers[3] && question.answers[3].answer
                     ? question.answers[3].answer
                     : "..."}
@@ -292,7 +292,7 @@ export default function GameBoard({ isAdmin }) {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <span>
+                <span className="fit-text">
                   {question && question.answers[4] && question.answers[4].answer
                     ? question.answers[4].answer
                     : "..."}
@@ -332,7 +332,7 @@ export default function GameBoard({ isAdmin }) {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <span>
+                <span className="fit-text">
                   {question && question.answers[5] && question.answers[5].answer
                     ? question.answers[5].answer
                     : "..."}
