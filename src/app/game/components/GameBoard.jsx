@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import "../../globals.css";
 
@@ -15,6 +15,9 @@ export default function GameBoard({ isAdmin }) {
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
   const [showCross, setShowCross] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const wrongAnswerAudioRef = useRef(null);
+  const correctAnswerAudioRef = useRef(null);
 
   useEffect(() => {
     socket.on("publishQuestion", (question) => {
@@ -40,10 +43,20 @@ export default function GameBoard({ isAdmin }) {
         setTeam2Score((prevScore) => prevScore + teamScore.score);
       }
       setScore(0);
+      if (soundEnabled && correctAnswerAudioRef.current) {
+        correctAnswerAudioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
     });
 
     socket.on("wrongAnswer", () => {
       setShowCross(true);
+      if (soundEnabled && wrongAnswerAudioRef.current) {
+        wrongAnswerAudioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
       setTimeout(() => {
         setShowCross(false);
       }, 5000);
@@ -55,7 +68,7 @@ export default function GameBoard({ isAdmin }) {
       socket.off("awardPoints");
       socket.off("wrongAnswer");
     };
-  }, []);
+  }, [soundEnabled]);
 
   useEffect(() => {
     if (question && answers.length > 0) {
@@ -70,6 +83,8 @@ export default function GameBoard({ isAdmin }) {
           <img src="/cross.png" alt="Wrong Answer" className="cross-image" />
         </div>
       )}
+      <audio ref={wrongAnswerAudioRef} src="/wrong-answer.mp3" />
+      <audio ref={correctAnswerAudioRef} src="/correct-answer.mp3" />
       <div className="score" id="boardScore">
         {score}
       </div>
@@ -380,6 +395,11 @@ export default function GameBoard({ isAdmin }) {
             Award Team 2
           </div>
         </div>
+      )}
+      {!soundEnabled && (
+        <button onClick={() => setSoundEnabled(true)} className="button">
+          Enable Sound
+        </button>
       )}
     </div>
   );

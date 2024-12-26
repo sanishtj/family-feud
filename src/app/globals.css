@@ -109,3 +109,20 @@
     transform: scale(0);
   }
 }
+
+@keyframes rotateCard {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+.card {
+  transition: transform 1s ease-out;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
