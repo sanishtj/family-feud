@@ -2,8 +2,8 @@ const express = require("express");
 const next = require("next");
 const http = require("http");
 const socketIo = require("socket.io");
-const jsonServer = require("json-server");
 const path = require("path");
+const fs = require("fs");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -15,17 +15,52 @@ app.prepare().then(() => {
   const io = socketIo(httpServer, {
     cors: {
       origin: "http://localhost:3000", // Allow requests from this origin
-      methods: ["GET", "POST"],
+      methods: ["GET", "POST", "PUT"],
       credentials: true,
     },
   });
 
-  // JSON Server setup
-  const router = jsonServer.router(
-    path.join(__dirname, "src/app/data/questions.json")
-  );
-  const middlewares = jsonServer.defaults();
-  server.use("/api", middlewares, router);
+  server.use(express.json());
+
+  // Custom endpoint to list all questions
+  server.get("/api/questions", (req, res) => {
+    const jsonFilePath = path.join(__dirname, "src/app/data/questions.json");
+    const data = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
+    res.status(200).json(data.questions);
+  });
+
+  // Custom endpoint to reset the game
+  server.post("/api/questions/reset", (req, res) => {
+    const jsonFilePath = path.join(__dirname, "src/app/data/questions.json");
+    const data = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
+
+    data.questions.forEach((question) => {
+      question.used = false;
+    });
+
+    fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2));
+    res.status(200).json({ message: "Game reset successfully" });
+  });
+
+  // Custom endpoint to update a specific question
+  server.put("/api/questions/:id", (req, res) => {
+    const jsonFilePath = path.join(__dirname, "src/app/data/questions.json");
+    const data = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
+    const questionId = req.params.id;
+    const updatedQuestion = req.body;
+
+    const questionIndex = data.questions.findIndex(
+      (question) => question.id === questionId
+    );
+
+    if (questionIndex !== -1) {
+      data.questions[questionIndex] = updatedQuestion;
+      fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2));
+      res.status(200).json(updatedQuestion);
+    } else {
+      res.status(404).json({ message: "Question not found" });
+    }
+  });
 
   io.on("connection", (socket) => {
     console.log("New client connected");
