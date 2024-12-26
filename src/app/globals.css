@@ -129,9 +129,8 @@
 
 /* Fit-Text */
 .fit-text {
-  font-size: 0.95vw; /* Adjust this value as needed */
+  font-size: 15px; /* Adjust this value as needed */
   white-space: nowrap;
-
   text-align: center;
-  line-height: 1.2;
+  font-weight: bold;
 }

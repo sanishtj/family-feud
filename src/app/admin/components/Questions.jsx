@@ -64,7 +64,7 @@ export default function Questions() {
           <tbody>
             {questions.map((question, index) => (
               <tr key={index}>
-                <td className="text-center text-black">{index + 1}</td>
+                <td className="text-center text-black">{question.id}</td>
                 <td className="text-black">{question.question}</td>
                 <td className="text-center">
                   <button
