@@ -52,7 +52,10 @@ export default function Questions() {
 
   return (
     <div className="container">
-      <div className="overflow-y-auto" style={{ maxHeight: "400px" }}>
+      <div
+        className="overflow-y-auto"
+        style={{ maxHeight: "400px", minWidth: "400px" }}
+      >
         <table className="table">
           <thead>
             <tr>
