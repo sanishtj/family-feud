@@ -16,6 +16,7 @@ export default function GameBoard({ isAdmin }) {
   const [team2Score, setTeam2Score] = useState(0);
   const [showCross, setShowCross] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [loading, setLoading] = useState(true);
   const wrongAnswerAudioRef = useRef(null);
   const correctAnswerAudioRef = useRef(null);
 
@@ -27,6 +28,7 @@ export default function GameBoard({ isAdmin }) {
       setScore(0);
       setTeam1Score(0);
       setTeam2Score(0);
+      setLoading(false);
     });
 
     socket.on("revealAnswer", (answerIndex) => {
@@ -79,6 +81,20 @@ export default function GameBoard({ isAdmin }) {
 
   return (
     <div className="gameBoard">
+      {loading && !isAdmin && (
+        <div className="logo-overlay">
+          <div className="logo-container">
+            <img
+              src="/Family-Feud-Logo.png"
+              alt="Family Feud Logo"
+              className="logo"
+              style={{ position: "relative", zIndex: 1 }}
+            />
+            <div className="light-effect"></div>
+            <div className="colorful-lights"></div>
+          </div>
+        </div>
+      )}
       {showCross && !isAdmin && (
         <div className="overlay visible">
           <img src="/cross.png" alt="Wrong Answer" className="cross-image" />
