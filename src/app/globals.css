@@ -315,6 +315,30 @@
   width: 100px;
   transform: rotate(10deg);
 }
+.instructions-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center; /* Center the content */
+}
+
+.instructions-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.instructions-page ul {
+  list-style-type: disc;
+  padding-left: 0; /* Remove default padding */
+  display: inline-block; /* Center the list */
+  text-align: left; /* Align text to the left */
+}
+
+.instructions-page li {
+  margin-bottom: 10px;
+  font-size: 1.5rem; /* Increase font size */
+  color: #555;
+}
 
 /* Add this to import the font */
 @import url("https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap");

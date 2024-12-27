@@ -108,7 +108,7 @@ export default function GameBoard({ isAdmin }) {
     });
 
     socket.on("startTimer", () => {
-      setTimer(30);
+      setTimer(45);
       setIsTimerRunning(true);
     });
 

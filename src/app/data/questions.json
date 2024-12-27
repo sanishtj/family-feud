@@ -33,37 +33,6 @@
     },
     {
       "id": "2",
-      "question": "Name something you might find in Santa's sleigh that would surprise you.",
-      "answers": [
-        {
-          "answer": "A GPS",
-          "points": 50
-        },
-        {
-          "answer": "A stash of cookies",
-          "points": 30
-        },
-        {
-          "answer": "A reindeer with a hangover",
-          "points": 20
-        },
-        {
-          "answer": "A karaoke machine",
-          "points": 15
-        },
-        {
-          "answer": "A list of naughty kids",
-          "points": 10
-        },
-        {
-          "answer": "A bottle of champagne",
-          "points": 5
-        }
-      ],
-      "used": true
-    },
-    {
-      "id": "3",
       "question": "Name a popular fast food chain in Canada.",
       "answers": [
         {
@@ -91,35 +60,66 @@
           "points": 2
         }
       ],
+      "used": true
+    },
+    {
+      "id": "3",
+      "question": "Name something you might find on a Christmas tree.",
+      "answers": [
+        {
+          "answer": "Ornaments",
+          "points": 50
+        },
+        {
+          "answer": "Lights",
+          "points": 40
+        },
+        {
+          "answer": "Tinsel",
+          "points": 30
+        },
+        {
+          "answer": "A star or angel on top",
+          "points": 20
+        },
+        {
+          "answer": "Candy canes",
+          "points": 15
+        },
+        {
+          "answer": "Garland",
+          "points": 10
+        }
+      ],
       "used": false
     },
     {
       "id": "4",
-      "question": "Name something people do to prepare for Christmas that they secretly dislike.",
+      "question": "Name a popular holiday celebrated in Canada.",
       "answers": [
         {
-          "answer": "Shopping for gifts",
+          "answer": "Christmas",
           "points": 50
         },
         {
-          "answer": "Wrapping presents",
+          "answer": "Thanksgiving",
+          "points": 40
+        },
+        {
+          "answer": "Canada Day",
           "points": 30
         },
         {
-          "answer": "Decorating the tree",
+          "answer": "Easter",
           "points": 20
         },
         {
-          "answer": "Attending holiday parties",
+          "answer": "Victoria Day",
           "points": 15
         },
         {
-          "answer": "Sending Christmas cards",
+          "answer": "Halloween",
           "points": 10
-        },
-        {
-          "answer": "Cooking a big meal",
-          "points": 5
         }
       ],
       "used": false
@@ -188,31 +188,31 @@
     },
     {
       "id": "7",
-      "question": "Name something you might find on a Christmas tree.",
+      "question": "Name something people do to prepare for Christmas that they secretly dislike.",
       "answers": [
         {
-          "answer": "Ornaments",
+          "answer": "Shopping for gifts",
           "points": 50
         },
         {
-          "answer": "Lights",
-          "points": 40
-        },
-        {
-          "answer": "Tinsel",
+          "answer": "Wrapping presents",
           "points": 30
         },
         {
-          "answer": "A star or angel on top",
+          "answer": "Decorating the tree",
           "points": 20
         },
         {
-          "answer": "Candy canes",
+          "answer": "Attending holiday parties",
           "points": 15
         },
         {
-          "answer": "Garland",
+          "answer": "Sending Christmas cards",
           "points": 10
+        },
+        {
+          "answer": "Cooking a big meal",
+          "points": 5
         }
       ],
       "used": false
@@ -223,23 +223,23 @@
       "answers": [
         {
           "answer": "Taj Mahal",
-          "points": 50
+          "points": 25
         },
         {
           "answer": "Jaipur (Pink City)",
-          "points": 40
-        },
-        {
-          "answer": "Goa",
-          "points": 30
-        },
-        {
-          "answer": "Varanasi",
           "points": 20
         },
         {
-          "answer": "Kerala Backwaters",
+          "answer": "Goa",
+          "points": 20
+        },
+        {
+          "answer": "Varanasi",
           "points": 15
+        },
+        {
+          "answer": "Kerala Backwaters",
+          "points": 10
         },
         {
           "answer": "Hampi",
@@ -281,27 +281,27 @@
     },
     {
       "id": "10",
-      "question": "Name a popular holiday celebrated in Canada.",
+      "question": "Name something a performer might do before taking the stage.",
       "answers": [
         {
-          "answer": "Christmas",
-          "points": 50
+          "answer": "Pray",
+          "points": 35
         },
         {
-          "answer": "Thanksgiving",
-          "points": 40
+          "answer": "Practice",
+          "points": 18
         },
         {
-          "answer": "Canada Day",
-          "points": 30
+          "answer": "Warm up",
+          "points": 18
         },
         {
-          "answer": "Easter",
-          "points": 20
-        },
-        {
-          "answer": "Victoria Day",
+          "answer": "Drink",
           "points": 15
+        },
+        {
+          "answer": "Puke",
+          "points": 14
         },
         {
           "answer": "Halloween",
@@ -312,7 +312,7 @@
     },
     {
       "id": "11",
-      "question": "Name a type of beverage.",
+      "question": "Name a type of beverage that Canadians drink.",
       "answers": [
         {
           "answer": "Water",
@@ -408,7 +408,7 @@
       "question": "What is something you can always find in an Indian household?",
       "answers": [
         {
-          "answer": "Spices in every corner",
+          "answer": "Spices",
           "points": 40
         },
         {
@@ -416,7 +416,7 @@
           "points": 25
         },
         {
-          "answer": "A collection of old newspapers",
+          "answer": "Old newspapers",
           "points": 15
         },
         {
@@ -424,7 +424,7 @@
           "points": 10
         },
         {
-          "answer": "A pair of slippers at the entrance",
+          "answer": "A pair of slippers",
           "points": 5
         },
         {
@@ -498,123 +498,123 @@
     },
     {
       "id": "17",
-      "question": "What is something Canadians do to survive the winter?",
+      "question": "Name the most embarrassing food to have stuck to your face.",
       "answers": [
         {
-          "answer": "Drink hot chocolate like it's water",
-          "points": 35
+          "answer": "Spinach",
+          "points": 32
         },
         {
-          "answer": "Wear 10 layers of clothing",
-          "points": 30
+          "answer": "Chocolate",
+          "points": 24
         },
         {
-          "answer": "Complain about the cold while still going outside",
-          "points": 20
+          "answer": "Ice cream",
+          "points": 18
         },
         {
-          "answer": "Build an igloo for fun",
-          "points": 10
+          "answer": "Ketchup",
+          "points": 12
         },
         {
-          "answer": "Use snow shovels as workout equipment",
-          "points": 5
+          "answer": "Eggs",
+          "points": 8
         },
         {
-          "answer": "Talk about how cold it is to anyone who will listen",
-          "points": 3
+          "answer": "Gum",
+          "points": 6
         }
       ],
       "used": false
     },
     {
       "id": "18",
-      "question": "What is something you might hear during a movie that makes everyone roll their eyes?",
+      "question": "Name the most popular non-alcoholic mixer at the bar.",
       "answers": [
         {
-          "answer": "I can’t believe they fell for that!",
-          "points": 35
+          "answer": "Coca cola",
+          "points": 37
         },
         {
-          "answer": "Why is the villain always so over-the-top?",
-          "points": 30
-        },
-        {
-          "answer": "Did they really just run into a wall?",
-          "points": 25
-        },
-        {
-          "answer": "How many times can they say 'I’ll be back'?",
+          "answer": "Tonic water",
           "points": 15
         },
         {
-          "answer": "Wait, is that a plot twist or a plot hole?",
-          "points": 10
+          "answer": "Club soda",
+          "points": 15
         },
         {
-          "answer": "Why do they always have to kiss in the rain?",
-          "points": 5
+          "answer": "7-up",
+          "points": 11
+        },
+        {
+          "answer": "Cranberry juice",
+          "points": 11
+        },
+        {
+          "answer": "Orange Juice",
+          "points": 11
         }
       ],
       "used": false
     },
     {
       "id": "19",
-      "question": "What is something people say after having one too many drinks?",
+      "question": "Name something that helps people relax after a bad day.",
       "answers": [
         {
-          "answer": "I’m just going to have one more!",
-          "points": 35
+          "answer": "Bath",
+          "points": 57
         },
         {
-          "answer": "I love you, man!",
-          "points": 30
+          "answer": "Alcohol",
+          "points": 13
         },
         {
-          "answer": "This is my favorite song!",
-          "points": 20
+          "answer": "Sleep",
+          "points": 12
         },
         {
-          "answer": "I can totally dance!",
-          "points": 10
+          "answer": "Massage",
+          "points": 8
         },
         {
-          "answer": "Let’s order food, I’m starving!",
-          "points": 5
+          "answer": "Watching TV",
+          "points": 8
         },
         {
-          "answer": "I’m never drinking again!",
-          "points": 3
+          "answer": "Reading",
+          "points": 2
         }
       ],
       "used": false
     },
     {
       "id": "20",
-      "question": "What is something a husband might say when he forgets his anniversary?",
+      "question": "Name something that people acquire over the years",
       "answers": [
         {
-          "answer": "I thought it was next week!",
-          "points": 35
+          "answer": "Knowledge",
+          "points": 31
         },
         {
-          "answer": "I was just testing you!",
-          "points": 30
+          "answer": "Money",
+          "points": 28
         },
         {
-          "answer": "Didn’t we celebrate last year?",
-          "points": 20
+          "answer": "Junk",
+          "points": 18
         },
         {
-          "answer": "I got you a surprise gift... in my mind!",
-          "points": 10
+          "answer": "Clothes",
+          "points": 12
         },
         {
-          "answer": "I thought we agreed to skip it this year!",
-          "points": 5
+          "answer": "Pictures",
+          "points": 8
         },
         {
-          "answer": "I was planning a big surprise!",
+          "answer": "Debt",
           "points": 3
         }
       ],
@@ -653,30 +653,30 @@
     },
     {
       "id": "22",
-      "question": "What is something Mrs. Claus might say to Santa when he comes home late from delivering presents?",
+      "question": "Name something that people do to make themselves look younger.",
       "answers": [
         {
-          "answer": "Did you stop for cookies again?",
-          "points": 35
+          "answer": "Plastic surgery",
+          "points": 42
         },
         {
-          "answer": "You better not have lost the reindeer!",
-          "points": 30
+          "answer": "Makeup",
+          "points": 31
         },
         {
-          "answer": "I hope you remembered my gift!",
-          "points": 20
+          "answer": "Hair color",
+          "points": 12
         },
         {
-          "answer": "You’re on the naughty list for being late!",
-          "points": 10
+          "answer": "Excersise",
+          "points": 8
         },
         {
-          "answer": "Next year, I’m coming with you!",
-          "points": 5
+          "answer": "Eat healthy",
+          "points": 4
         },
         {
-          "answer": "What took you so long? The elves are waiting!",
+          "answer": "Drink water",
           "points": 3
         }
       ],
@@ -684,61 +684,61 @@
     },
     {
       "id": "23",
-      "question": "What is something parents do when they work from home?",
+      "question": "Name something you might change about yourself in order to be with someone special.",
       "answers": [
         {
-          "answer": "Wear pajamas during video calls",
-          "points": 35
+          "answer": "Appearance",
+          "points": 34
         },
         {
-          "answer": "Get interrupted by kids every five minutes",
-          "points": 30
+          "answer": "Weight",
+          "points": 28
         },
         {
-          "answer": "Try to find a quiet spot but fail",
-          "points": 20
+          "answer": "Attitude",
+          "points": 14
         },
         {
-          "answer": "Snack constantly while working",
+          "answer": "Nothing",
           "points": 10
         },
         {
-          "answer": "Pretend to be busy when they’re not",
-          "points": 5
+          "answer": "Job",
+          "points": 9
         },
         {
-          "answer": "Schedule meetings around nap times",
-          "points": 3
+          "answer": "Current spouse :-)",
+          "points": 5
         }
       ],
       "used": false
     },
     {
       "id": "24",
-      "question": "What is something a pregnant woman might do that surprises her partner?",
+      "question": "What’s a hilarious gift to give for a wedding anniversary?",
       "answers": [
         {
-          "answer": "Suddenly burst into tears over a commercial",
-          "points": 35
-        },
-        {
-          "answer": "Demand weird food combinations at midnight",
+          "answer": "Personalized Calendar",
           "points": 30
         },
         {
-          "answer": "Talk to her belly like it can respond",
+          "answer": "Funny Apron",
           "points": 25
         },
         {
-          "answer": "Change her mind about names every week",
+          "answer": "Trophy",
+          "points": 20
+        },
+        {
+          "answer": "Couples' Massage Voucher",
           "points": 15
         },
         {
-          "answer": "Start nesting and rearranging everything",
+          "answer": "Customized Pillow",
           "points": 10
         },
         {
-          "answer": "Ask for foot massages every day",
+          "answer": "Mug",
           "points": 5
         }
       ],
