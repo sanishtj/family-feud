@@ -293,3 +293,28 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tilted-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff0000; /* Red color */
+  text-shadow: 2px 2px 4px #00ff00; /* Green shadow */
+  transform: rotate(-10deg);
+  margin-right: 10px;
+  font-family: "Mountains of Christmas", cursive; /* Christmassy font */
+}
+
+.tilted-logo {
+  width: 100px;
+  transform: rotate(10deg);
+}
+
+/* Add this to import the font */
+@import url("https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap");
