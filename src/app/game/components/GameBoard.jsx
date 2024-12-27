@@ -17,8 +17,27 @@ export default function GameBoard({ isAdmin }) {
   const [showCross, setShowCross] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showCoin, setShowCoin] = useState(false);
+  const [coinResult, setCoinResult] = useState(null);
+  const [timer, setTimer] = useState(30);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
   const wrongAnswerAudioRef = useRef(null);
   const correctAnswerAudioRef = useRef(null);
+  const coinFlipAudioRef = useRef(null);
+
+  useEffect(() => {
+    let timerInterval;
+    if (isTimerRunning && timer > 0) {
+      timerInterval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      setIsTimerRunning(false);
+      clearInterval(timerInterval);
+    }
+    return () => clearInterval(timerInterval);
+  }, [isTimerRunning, timer]);
 
   useEffect(() => {
     socket.on("publishQuestion", (question) => {
@@ -65,11 +84,35 @@ export default function GameBoard({ isAdmin }) {
       }, 5000);
     });
 
+    socket.on("coinToss", () => {
+      setShowCoin(true);
+      if (soundEnabled && coinFlipAudioRef.current) {
+        coinFlipAudioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
+      setTimeout(() => {
+        const result = Math.random() < 0.5 ? "heads" : "tails";
+        setCoinResult(result);
+        setShowCoin(false);
+        setTimeout(() => {
+          setCoinResult(null);
+        }, 5000); // Show result for 5 seconds
+      }, 3000); // Coin flip duration
+    });
+
+    socket.on("startTimer", () => {
+      setTimer(30);
+      setIsTimerRunning(true);
+    });
+
     return () => {
       socket.off("publishQuestion");
       socket.off("revealAnswer");
       socket.off("awardPoints");
       socket.off("wrongAnswer");
+      socket.off("coinToss");
+      socket.off("startTimer");
     };
   }, [soundEnabled]);
 
@@ -100,10 +143,44 @@ export default function GameBoard({ isAdmin }) {
           <img src="/cross.png" alt="Wrong Answer" className="cross-image" />
         </div>
       )}
+      {showCoin && !isAdmin && (
+        <div className="coin-overlay">
+          <div className="coin-container">
+            <div className="coin">
+              <div className="coin-heads">
+                <img
+                  src="/heads.png"
+                  alt="Heads"
+                  style={{ height: "100px", width: "100px" }}
+                />
+              </div>
+              <div className="coin-tails">
+                <img
+                  src="/tails.png"
+                  alt="Tails"
+                  style={{ height: "100px", width: "100px" }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {coinResult && !isAdmin && (
+        <div className="coin-result-overlay">
+          <div className="coin-result-container">
+            <img
+              src={`/${coinResult}.png`}
+              alt={coinResult}
+              style={{ height: "100px", width: "100px" }}
+            />
+          </div>
+        </div>
+      )}
       <audio ref={wrongAnswerAudioRef} src="/wrong-answer.mp3" />
       <audio ref={correctAnswerAudioRef} src="/correct-answer.mp3" />
+      <audio ref={coinFlipAudioRef} src="/coin-flip.mp3" />
       <div className="score" id="boardScore">
-        {score}
+        {isTimerRunning ? timer : 0}
       </div>
       <div className="score" id="team1">
         {team1Score}
@@ -402,6 +479,24 @@ export default function GameBoard({ isAdmin }) {
             Wrong Answer
           </div>
           <div
+            id="coinToss"
+            className="button"
+            onClick={() => {
+              socket.emit("coinToss");
+            }}
+          >
+            Coin Toss
+          </div>
+          <div
+            id="startTimer"
+            className="button"
+            onClick={() => {
+              socket.emit("startTimer");
+            }}
+          >
+            Start Timer
+          </div>
+          <div
             id="awardTeam2"
             data-team={2}
             className="button"
@@ -413,6 +508,7 @@ export default function GameBoard({ isAdmin }) {
           </div>
         </div>
       )}
+
       {!soundEnabled && (
         <button onClick={() => setSoundEnabled(true)} className="button">
           Enable Sound

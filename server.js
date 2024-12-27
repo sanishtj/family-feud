@@ -84,6 +84,14 @@ app.prepare().then(() => {
     socket.on("wrongAnswer", () => {
       io.emit("wrongAnswer");
     });
+
+    socket.on("coinToss", () => {
+      io.emit("coinToss");
+    });
+
+    socket.on("startTimer", () => {
+      io.emit("startTimer");
+    });
   });
 
   server.all("*", (req, res) => {
