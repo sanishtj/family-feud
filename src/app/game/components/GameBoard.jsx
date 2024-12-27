@@ -48,9 +48,11 @@ export default function GameBoard({ isAdmin }) {
       setTeam1Score(0);
       setTeam2Score(0);
       setLoading(false);
+      setTimer(0);
     });
 
     socket.on("revealAnswer", (answerIndex) => {
+      setTimer(0);
       setAnswerIndex(answerIndex);
       setAnswers((prevAnswers) => {
         return [...prevAnswers, answerIndex];
@@ -70,9 +72,11 @@ export default function GameBoard({ isAdmin }) {
         setTeam2Score((prevScore) => prevScore + teamScore.score);
       }
       setScore(0);
+      setTimer(0);
     });
 
     socket.on("wrongAnswer", () => {
+      setTimer(0);
       setShowCross(true);
       if (soundEnabled && wrongAnswerAudioRef.current) {
         wrongAnswerAudioRef.current.play().catch((error) => {
@@ -82,9 +86,11 @@ export default function GameBoard({ isAdmin }) {
       setTimeout(() => {
         setShowCross(false);
       }, 5000);
+      setTimer(0);
     });
 
     socket.on("coinToss", () => {
+      setTimer(0);
       setShowCoin(true);
       if (soundEnabled && coinFlipAudioRef.current) {
         coinFlipAudioRef.current.play().catch((error) => {
